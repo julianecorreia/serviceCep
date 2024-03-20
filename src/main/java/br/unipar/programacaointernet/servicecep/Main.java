@@ -45,7 +45,7 @@ public class Main {
         }
     }
 
-    private static Endereco getViaCep(String cep) throws Exception {
+    public static Endereco getViaCep(String cep) throws Exception {
         URL url = new URL("http://viacep.com.br/ws/"+cep.replace("-", "")
                 .replace(".", "")+"/xml/");
 

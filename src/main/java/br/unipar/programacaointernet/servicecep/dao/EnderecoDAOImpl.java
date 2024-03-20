@@ -5,6 +5,7 @@ import br.unipar.programacaointernet.servicecep.model.Usuario;
 import br.unipar.programacaointernet.servicecep.util.EntityManagerUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 
 import java.util.List;
 
@@ -55,5 +56,17 @@ public class EnderecoDAOImpl implements EnderecoDAO {
     public List<Endereco> findAll() {
         return em.createQuery("SELECT e FROM Endereco e",
                 Endereco.class).getResultList();
+    }
+
+    @Override
+    public Endereco findByCep(String cep) {
+        try {
+            return em.createQuery("SELECT e FROM Endereco e WHERE cep = :c",
+                            Endereco.class)
+                    .setParameter("c", cep)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }
